@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>記憶相簿</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", sans-serif;
+      margin: 0;
+      background: #fdfcfc;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(to right, #fbd3e9, #bbdff9);
+      padding: 2rem;
+      text-align: center;
+      color: #333;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+    header p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+    main {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .upload-section {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .upload-section input[type="file"] {
+      display: none;
+    }
+    .upload-label {
+      background: #ff9eb7;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .card img {
+      width: 100%;
+      object-fit: cover;
+      height: 200px;
+    }
+    .card-content {
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .like-button {
+      font-size: 1.5rem;
+      color: gray;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .like-button.liked {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>記憶相簿</h1>
+    <p>這是一個簡潔美觀的照片分享網站，屬於你的私人相冊。</p>
+  </header>
+
+  <main>
+    <section class="upload-section">
+      <label for="upload" class="upload-label">📸 上傳照片</label>
+      <input type="file" id="upload" accept="image/*" />
+    </section>
+
+    <section class="gallery" id="gallery">
+      <!-- 預設圖片卡片 -->
+    </section>
+  </main>
+
+  <script>
+    const uploadInput = document.getElementById("upload");
+    const gallery = document.getElementById("gallery");
+
+    const presetImages = [
+      "https://picsum.photos/id/1018/400/300",
+      "https://picsum.photos/id/1015/400/300",
+      "https://picsum.photos/id/1016/400/300",
+      "https://picsum.photos/id/1019/400/300"
+    ];
+
+    function createCard(imgSrc, title = "我的照片") {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const image = document.createElement("img");
+      image.src = imgSrc;
+
+      const content = document.createElement("div");
+      content.className = "card-content";
+
+      const titleElem = document.createElement("div");
+      titleElem.textContent = title;
+
+      const like = document.createElement("span");
+      like.innerHTML = "&#10084;"; // ♥
+      like.className = "like-button";
+      like.onclick = () => like.classList.toggle("liked");
+
+      content.appendChild(titleElem);
+      content.appendChild(like);
+
+      card.appendChild(image);
+      card.appendChild(content);
+
+      gallery.prepend(card);
+    }
+
+    presetImages.forEach(url => createCard(url));
+
+    uploadInput.addEventListener("change", e => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+          createCard(evt.target.result, "自上傳照片");
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>
