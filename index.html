@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>記憶相簿</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fdfdfd;
+      color: #333;
+    }
+    header {
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    nav a {
+      margin-left: 1.2rem;
+      text-decoration: none;
+      color: #555;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #0070f3;
+    }
+    .intro {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+      text-align: center;
+    }
+    .intro h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+    .intro p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+      padding: 1.5rem;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+    .structure, .goals, .uiux {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .structure h2, .goals h2, .uiux h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+    .structure ul, .goals ul, .uiux ul {
+      line-height: 1.8;
+      padding-left: 1.2rem;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #999;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>記憶相簿</h1>
+    <nav>
+      <a href="#intro">關於</a>
+      <a href="#features">特色</a>
+      <a href="#structure">架構</a>
+      <a href="#goals">目標</a>
+      <a href="#uiux">設計</a>
+      <a href="#contact">聯絡</a>
+    </nav>
+  </header>
+
+  <section class="intro" id="intro">
+    <h2>你的私人影像故事牆</h2>
+    <p>這是一個簡單純粹的照片平台，讓喜歡攝影、生活紀錄的你，能夠上傳、分類並展示專屬回憶，無論是風景、旅行、人物還是日常，都能收藏在這個屬於你的記憶相簿中。</p>
+  </section>
+
+  <section class="features" id="features">
+    <div class="card">
+      <h3>📷 照片上傳與編輯</h3>
+      <p>支援即時預覽、裁剪、濾鏡與標籤功能，讓你的作品更出色。</p>
+    </div>
+    <div class="card">
+      <h3>👥 社交互動</h3>
+      <p>支援按讚、留言、追蹤、分享與即時通知，促進交流與靈感激盪。</p>
+    </div>
+    <div class="card">
+      <h3>🧭 探索與標籤</h3>
+      <p>透過主題標籤（如旅行、美食、寵物等）發掘更多精彩作品。</p>
+    </div>
+    <div class="card">
+      <h3>👤 個人化頁面</h3>
+      <p>包含使用者簡介、照片牆、收藏清單與動態更新，打造專屬空間。</p>
+    </div>
+  </section>
+
+  <section class="structure" id="structure">
+    <h2>網站架構</h2>
+    <ul>
+      <li><strong>index.html</strong>：首頁簡介與導航</li>
+      <li><strong>explore.html</strong>：探索熱門標籤與主題</li>
+      <li><strong>album.html</strong>：瀏覽使用者相簿</li>
+      <li><strong>upload.html</strong>：上傳與編輯照片</li>
+      <li><strong>profile.html</strong>：個人檔案與動態牆</li>
+      <li><strong>login.html / register.html</strong>：登入與註冊頁</li>
+      <li><strong>message.html</strong>：私訊與通知</li>
+    </ul>
+  </section>
+
+  <section class="goals" id="goals">
+    <h2>網站主旨與目標</h2>
+    <ul>
+      <li>打造結合 Instagram、Pinterest、Threads 元素的照片社群平台</li>
+      <li>強調視覺吸引力與使用者互動性</li>
+      <li>讓用戶自由分享生活、建立影像故事、瀏覽靈感</li>
+      <li>無廣告、無干擾，回歸影像與人的連結</li>
+    </ul>
+  </section>
+
+  <section class="uiux" id="uiux">
+    <h2>設計理念與風格</h2>
+    <ul>
+      <li>色彩乾淨、風格極簡，採用大量留白與卡片式排版</li>
+      <li>支援 RWD 響應式設計，手機操作友善</li>
+      <li>動態牆與探索頁主打圖片視覺呈現</li>
+      <li>用戶操作流程順暢，互動按鈕明確可見</li>
+    </ul>
+  </section>
+
+  <footer id="contact">
+    <p>&copy; 2025 記憶相簿｜Build your memories, share your stories.</p>
+  </footer>
+</body>
+</html>
