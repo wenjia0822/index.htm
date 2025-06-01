@@ -6,147 +6,187 @@
   <title>記憶相簿</title>
   <style>
     body {
-      font-family: "Helvetica Neue", sans-serif;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #fdfdfd;
       margin: 0;
-      background: #fdfcfc;
+      padding: 0;
       color: #333;
     }
     header {
-      background: linear-gradient(to right, #fbd3e9, #bbdff9);
-      padding: 2rem;
+      background-color: #fff;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       text-align: center;
-      color: #333;
     }
     header h1 {
-      font-size: 2.5rem;
       margin: 0;
+      font-size: 2rem;
     }
-    header p {
-      font-size: 1.2rem;
-      margin-top: 0.5rem;
-    }
-    main {
+    .container {
       max-width: 1000px;
       margin: 2rem auto;
       padding: 0 1rem;
     }
-    .upload-section {
-      text-align: center;
+    section {
       margin-bottom: 2rem;
     }
-    .upload-section input[type="file"] {
-      display: none;
-    }
-    .upload-label {
-      background: #ff9eb7;
-      color: white;
-      padding: 0.8rem 1.5rem;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.5rem;
+    h2 {
+      font-size: 1.5rem;
+      color: #555;
+      border-left: 4px solid #999;
+      padding-left: 0.5rem;
     }
     .card {
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .card img {
-      width: 100%;
-      object-fit: cover;
-      height: 200px;
-    }
-    .card-content {
+      background: #fff;
       padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      margin-bottom: 1rem;
     }
-    .like-button {
-      font-size: 1.5rem;
-      color: gray;
+    .tags {
+      margin-top: 1rem;
+    }
+    .tag {
+      display: inline-block;
+      background: #eee;
+      color: #666;
+      border-radius: 20px;
+      padding: 0.3rem 1rem;
+      font-size: 0.9rem;
+      margin-right: 0.5rem;
+    }
+    .comment-section {
+      margin-top: 2rem;
+    }
+    .comment-form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+    .comment-form button {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: #5b9bd5;
+      color: white;
+      border: none;
+      border-radius: 4px;
       cursor: pointer;
-      transition: color 0.3s;
     }
-    .like-button.liked {
-      color: red;
+    .comment-list {
+      margin-top: 1rem;
+    }
+    .comment {
+      background: #f4f4f4;
+      padding: 0.8rem;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>記憶相簿</h1>
-    <p>這是一個簡潔美觀的照片分享網站，屬於你的私人相冊。</p>
   </header>
-
-  <main>
-    <section class="upload-section">
-      <label for="upload" class="upload-label">📸 上傳照片</label>
-      <input type="file" id="upload" accept="image/*" />
+  <div class="container">
+    <section>
+      <h2>網站簡介</h2>
+      <div class="card">
+        <p>這是一個簡潔美觀的照片分享網站，讓使用者可以輕鬆上傳、分類和展示自己的攝影作品或生活照片。無論是風景、人物、旅行日記，或是日常記錄，這裡都是屬於你的私人相冊，讓回憶隨時可見、輕鬆分享。</p>
+        <ul>
+          <li>目的：提供一個簡單、純粹的照片分享平台</li>
+          <li>適用對象：喜歡攝影、生活紀錄的使用者</li>
+        </ul>
+      </div>
     </section>
 
-    <section class="gallery" id="gallery">
-      <!-- 預設圖片卡片 -->
+    <section>
+      <h2>網站特色</h2>
+      <div class="card">
+        <ul>
+          <li>簡單介面：無廣告、無干擾的照片牆</li>
+          <li>自由上傳：用戶可創建相簿上傳照片</li>
+          <li>社群互動：留言、按讚功能</li>
+          <li>主題標籤：方便搜尋同類型照片</li>
+        </ul>
+      </div>
     </section>
-  </main>
+
+    <section>
+      <h2>網站主旨與設計理念</h2>
+      <div class="card">
+        <ul>
+          <li>打造一個結合 Instagram、Pinterest、Threads 元素的現代照片分享平台</li>
+          <li>強調視覺吸引力與使用者互動性</li>
+          <li>希望讓用戶能自由分享生活、瀏覽靈感、互相留言或按讚</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>核心功能規劃</h2>
+      <div class="card">
+        <ol>
+          <li>照片上傳與編輯：支援濾鏡、裁剪、標籤功能</li>
+          <li>社交互動功能：留言、按讚、分享；追蹤其他用戶並建立個人動態牆</li>
+          <li>探索頁面設計：以圖片為主視覺呈現，支援主題標籤分類（如：旅行、美食、寵物）</li>
+          <li>個人頁面：顯示用戶簡介、照片牆、收藏清單</li>
+          <li>通知與私訊：即時互動提醒，簡易私訊系統</li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <h2>UI / UX 風格</h2>
+      <div class="card">
+        <ul>
+          <li>色彩乾淨、風格極簡</li>
+          <li>使用卡片式佈局呈現圖片（類似 Pinterest）</li>
+          <li>留白適中、重視手機端體驗</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>主題標籤</h2>
+      <div class="card tags">
+        <span class="tag">#旅行</span>
+        <span class="tag">#風景</span>
+        <span class="tag">#人物</span>
+        <span class="tag">#美食</span>
+        <span class="tag">#寵物</span>
+        <span class="tag">#日常</span>
+      </div>
+    </section>
+
+    <section class="comment-section">
+      <h2>留言區</h2>
+      <div class="card">
+        <form class="comment-form">
+          <textarea rows="4" placeholder="留下你的留言..."></textarea>
+          <button type="button" onclick="addComment()">送出留言</button>
+        </form>
+        <div class="comment-list" id="commentList"></div>
+      </div>
+    </section>
+  </div>
 
   <script>
-    const uploadInput = document.getElementById("upload");
-    const gallery = document.getElementById("gallery");
-
-    const presetImages = [
-      "https://picsum.photos/id/1018/400/300",
-      "https://picsum.photos/id/1015/400/300",
-      "https://picsum.photos/id/1016/400/300",
-      "https://picsum.photos/id/1019/400/300"
-    ];
-
-    function createCard(imgSrc, title = "我的照片") {
-      const card = document.createElement("div");
-      card.className = "card";
-
-      const image = document.createElement("img");
-      image.src = imgSrc;
-
-      const content = document.createElement("div");
-      content.className = "card-content";
-
-      const titleElem = document.createElement("div");
-      titleElem.textContent = title;
-
-      const like = document.createElement("span");
-      like.innerHTML = "&#10084;"; // ♥
-      like.className = "like-button";
-      like.onclick = () => like.classList.toggle("liked");
-
-      content.appendChild(titleElem);
-      content.appendChild(like);
-
-      card.appendChild(image);
-      card.appendChild(content);
-
-      gallery.prepend(card);
-    }
-
-    presetImages.forEach(url => createCard(url));
-
-    uploadInput.addEventListener("change", e => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (evt) {
-          createCard(evt.target.result, "自上傳照片");
-        };
-        reader.readAsDataURL(file);
+    function addComment() {
+      const textarea = document.querySelector(".comment-form textarea");
+      const commentList = document.getElementById("commentList");
+      const content = textarea.value.trim();
+      if (content !== "") {
+        const comment = document.createElement("div");
+        comment.className = "comment";
+        comment.textContent = content;
+        commentList.prepend(comment);
+        textarea.value = "";
       }
-    });
+    }
   </script>
 </body>
 </html>
