@@ -6,147 +6,167 @@
   <title>記憶相簿</title>
   <style>
     body {
-      font-family: "Helvetica Neue", sans-serif;
+      font-family: "Segoe UI", sans-serif;
       margin: 0;
-      background: #fdfcfc;
-      color: #333;
+      padding: 0;
+      background: #fdfbfb;
+      background: linear-gradient(to right, #ebedee, #fef9f9);
     }
     header {
-      background: linear-gradient(to right, #fbd3e9, #bbdff9);
-      padding: 2rem;
+      background: linear-gradient(to right, #fbd3e9, #bb377d);
+      color: white;
+      padding: 1rem 2rem;
       text-align: center;
-      color: #333;
     }
     header h1 {
-      font-size: 2.5rem;
       margin: 0;
+      font-size: 2rem;
     }
     header p {
-      font-size: 1.2rem;
       margin-top: 0.5rem;
+      font-size: 1rem;
     }
-    main {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    .upload-section {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .upload-section input[type="file"] {
-      display: none;
-    }
-    .upload-label {
-      background: #ff9eb7;
-      color: white;
-      padding: 0.8rem 1.5rem;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
+    #uploadArea, #filterArea {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      flex-wrap: wrap;
     }
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
     }
     .card {
       background: white;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       display: flex;
       flex-direction: column;
     }
     .card img {
       width: 100%;
-      object-fit: cover;
       height: 200px;
+      object-fit: cover;
     }
     .card-content {
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      padding: 0.5rem 1rem;
     }
-    .like-button {
-      font-size: 1.5rem;
-      color: gray;
+    .like-btn {
       cursor: pointer;
-      transition: color 0.3s;
+      color: #aaa;
+      font-size: 1.2rem;
     }
-    .like-button.liked {
+    .like-btn.liked {
       color: red;
+    }
+    .comment-box {
+      margin-top: 0.5rem;
+    }
+    .comment-box input {
+      width: 100%;
+      padding: 0.3rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .tags {
+      margin-top: 0.3rem;
+      font-size: 0.85rem;
+      color: #666;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>記憶相簿</h1>
-    <p>這是一個簡潔美觀的照片分享網站，屬於你的私人相冊。</p>
+    <p>這是一個簡潔美觀的照片分享網站，讓使用者可以輕鬆上傳、分類和展示自己的攝影作品或生活照片。<br>
+    無論是風景、人物、旅行日記，或是日常記錄，這裡都是屬於你的私人相冊，讓回憶隨時可見、輕鬆分享。</p>
   </header>
 
-  <main>
-    <section class="upload-section">
-      <label for="upload" class="upload-label">📸 上傳照片</label>
-      <input type="file" id="upload" accept="image/*" />
-    </section>
+  <div id="uploadArea">
+    <input type="file" id="imageInput" accept="image/*" />
+    <input type="text" id="tagInput" placeholder="輸入主題標籤，如：旅行" />
+  </div>
 
-    <section class="gallery" id="gallery">
-      <!-- 預設圖片卡片 -->
-    </section>
-  </main>
+  <div id="filterArea">
+    <input type="text" id="searchInput" placeholder="搜尋主題標籤..." />
+  </div>
+
+  <div class="gallery" id="gallery"></div>
 
   <script>
-    const uploadInput = document.getElementById("upload");
+    const imageInput = document.getElementById("imageInput");
+    const tagInput = document.getElementById("tagInput");
+    const searchInput = document.getElementById("searchInput");
     const gallery = document.getElementById("gallery");
 
-    const presetImages = [
-      "https://picsum.photos/id/1018/400/300",
-      "https://picsum.photos/id/1015/400/300",
-      "https://picsum.photos/id/1016/400/300",
-      "https://picsum.photos/id/1019/400/300"
-    ];
+    let images = JSON.parse(localStorage.getItem("galleryImages")) || [];
 
-    function createCard(imgSrc, title = "我的照片") {
-      const card = document.createElement("div");
-      card.className = "card";
-
-      const image = document.createElement("img");
-      image.src = imgSrc;
-
-      const content = document.createElement("div");
-      content.className = "card-content";
-
-      const titleElem = document.createElement("div");
-      titleElem.textContent = title;
-
-      const like = document.createElement("span");
-      like.innerHTML = "&#10084;"; // ♥
-      like.className = "like-button";
-      like.onclick = () => like.classList.toggle("liked");
-
-      content.appendChild(titleElem);
-      content.appendChild(like);
-
-      card.appendChild(image);
-      card.appendChild(content);
-
-      gallery.prepend(card);
+    function saveToLocalStorage() {
+      localStorage.setItem("galleryImages", JSON.stringify(images));
     }
 
-    presetImages.forEach(url => createCard(url));
+    function renderGallery(filter = "") {
+      gallery.innerHTML = "";
+      images.filter(img => img.tag.includes(filter)).forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${item.src}" alt="image">
+          <div class="card-content">
+            <span class="like-btn ${item.liked ? 'liked' : ''}" data-index="${index}">♥</span>
+            <div class="tags">#${item.tag}</div>
+            <div class="comment-box">
+              <input type="text" placeholder="留言..." onkeypress="addComment(event, ${index})">
+              <ul id="comment-list-${index}"></ul>
+            </div>
+          </div>
+        `;
+        gallery.appendChild(card);
+        item.comments.forEach(comment => {
+          const li = document.createElement("li");
+          li.textContent = comment;
+          document.getElementById(`comment-list-${index}`).appendChild(li);
+        });
+      });
+    }
 
-    uploadInput.addEventListener("change", e => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (evt) {
-          createCard(evt.target.result, "自上傳照片");
-        };
-        reader.readAsDataURL(file);
+    function addComment(e, index) {
+      if (e.key === "Enter" && e.target.value.trim() !== "") {
+        images[index].comments.push(e.target.value);
+        saveToLocalStorage();
+        renderGallery(searchInput.value);
+      }
+    }
+
+    gallery.addEventListener("click", function(e) {
+      if (e.target.classList.contains("like-btn")) {
+        const i = e.target.getAttribute("data-index");
+        images[i].liked = !images[i].liked;
+        saveToLocalStorage();
+        renderGallery(searchInput.value);
       }
     });
+
+    imageInput.addEventListener("change", function() {
+      const file = this.files[0];
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        images.unshift({ src: evt.target.result, liked: false, tag: tagInput.value || "未分類", comments: [] });
+        saveToLocalStorage();
+        renderGallery(searchInput.value);
+      };
+      if (file) reader.readAsDataURL(file);
+    });
+
+    searchInput.addEventListener("input", function() {
+      renderGallery(this.value);
+    });
+
+    renderGallery();
   </script>
 </body>
 </html>
